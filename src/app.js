@@ -24,6 +24,7 @@ require("./models/Administrador");
 require("./models/Membresia");
 require("./models/TipoMembresia");
 require("./models/Asistencia");
+require("./models/TipoMembresia");
 
 // Sincronizar modelos con la BD
 sequelize.sync({ alter: true })  // ⚠️ Esto crea/actualiza las tablas
@@ -33,6 +34,5 @@ sequelize.sync({ alter: true })  // ⚠️ Esto crea/actualiza las tablas
 // Rutas
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/asistencia", require("./routes/asistenciaRoutes")); // 👈 Nueva ruta agregada
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🔥 Servidor corriendo en http://localhost:${PORT}`));

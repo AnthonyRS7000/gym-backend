@@ -49,6 +49,16 @@ const Cliente = sequelize.define("Cliente", {
             key: "id",
         },
     },
+    fecha_inicio: {
+        type: DataTypes.DATEONLY,
+        allowNull: true, // <--- temporalmente true
+    },
+    fecha_fin: {
+        type: DataTypes.DATEONLY,
+        allowNull: true, // <--- temporalmente true
+    },
+    
+    
 });
 
 // **Definir relaciones aquí**

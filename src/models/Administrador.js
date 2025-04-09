@@ -8,6 +8,15 @@ const Administrador = sequelize.define("Administrador", {
         primaryKey: true,
         autoIncrement: true,
     },
+    usuarioId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Usuario,
+            key: "id",
+        },
+        onDelete: "CASCADE"
+    }
 });
 
 // Relación con Usuario (1 a 1)

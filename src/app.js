@@ -26,7 +26,7 @@ require("./models/Membresia");
 require("./models/TipoMembresia");
 require("./models/Asistencia");
 require("./models/TipoMembresia");
-require("./models/Notificacion"); // NUEVO modelo aquí
+
 
 // Sincronizar modelos con la BD
 sequelize.sync({ alter: true })  // ⚠️ Esto crea/actualiza las tablas
@@ -37,22 +37,11 @@ sequelize.sync({ alter: true })  // ⚠️ Esto crea/actualiza las tablas
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/asistencia", require("./routes/asistenciaRoutes")); // Nueva ruta agregada
 app.use("/api", require("./routes/cliente"));
-app.use("/api/notificaciones", require("./routes/notificaciones"));
+
 
 // Programar la tarea para ejecutar la generación de notificaciones todos los días a las 12:00 AM
 // Programar la tarea para ejecutar la generación de notificaciones todos los días a las 12:00 AM
-cron.schedule('0 0 * * *', () => {
-    console.log('🌙 Ejecutando la tarea de generar notificaciones...');
-    
-    // Llamar a la función que genera las notificaciones
-    const { generarNotificacionesMembresias } = require("./controllers/notificacionController");
-    
-    generarNotificacionesMembresias({}, { // Llamada al controlador (req y res simulados)
-        json: (response) => {
-            console.log("✅ Notificaciones generadas automáticamente:", response);
-        }
-    });
-});
+
 
 
 const PORT = process.env.PORT || 5000;

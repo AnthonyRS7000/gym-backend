@@ -13,7 +13,7 @@ exports.getProfile = async (req, res) => {
 
         if (usuarios.rol === 'cliente') {
             const [clientes] = await sequelize.query(
-                'SELECT telefono, direccion, fecha_nacimiento, genero, peso, estatura, tipoMembresiaId FROM clientes WHERE usuarioId = ?',
+                'SELECT telefono, direccion,dni, fecha_nacimiento, genero, peso, estatura, tipoMembresiaId FROM clientes WHERE usuarioId = ?',
                 { replacements: [usuarios.id], type: sequelize.QueryTypes.SELECT }
             );
             datosExtra = clientes || null;
@@ -46,6 +46,7 @@ exports.updateProfile = async (req, res) => {
         nombre,
         telefono,
         direccion,
+        dni,
         fecha_nacimiento,
         genero,
         peso,
@@ -80,9 +81,9 @@ exports.updateProfile = async (req, res) => {
         // 3. Actualizar tabla correspondiente según el rol
         if (rol === 'cliente') {
             await sequelize.query(
-                `UPDATE clientes SET telefono = ?, direccion = ?, fecha_nacimiento = ?, genero = ?, peso = ?, estatura = ? WHERE usuarioId = ?`,
+                `UPDATE clientes SET telefono = ?, direccion?, dni = ?, fecha_nacimiento = ?, genero = ?, peso = ?, estatura = ? WHERE usuarioId = ?`,
                 {
-                    replacements: [telefono, direccion, fecha_nacimiento, genero, peso, estatura, userId],
+                    replacements: [telefono, direccion,dni, fecha_nacimiento, genero, peso, estatura, userId],
                     type: sequelize.QueryTypes.UPDATE
                 }
             );

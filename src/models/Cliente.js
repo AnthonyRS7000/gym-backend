@@ -17,6 +17,10 @@ const Cliente = sequelize.define("Cliente", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     fecha_nacimiento: {
         type: DataTypes.DATEONLY,
         allowNull: false,

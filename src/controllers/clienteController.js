@@ -9,7 +9,7 @@ const obtenerClientesConInfo = async (req, res) => {
                 {
                     model: Usuario,
                     as: "usuario",
-                    attributes: ["nombre"]
+                    attributes: ["nombre", "email"],
                 },
                 {
                     model: TipoMembresia,
@@ -17,7 +17,7 @@ const obtenerClientesConInfo = async (req, res) => {
                     attributes: ["nombre"]
                 }
             ],
-            attributes: ["fecha_inicio", "fecha_fin"]
+            attributes: ["fecha_inicio", "fecha_fin","dni"]
         });
 
         res.json(clientes);

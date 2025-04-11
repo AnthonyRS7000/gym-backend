@@ -187,6 +187,7 @@ exports.registrarUsuario = async (req, res) => {
             confirm_password,
             telefono,
             direccion,
+            dni,
             fecha_nacimiento,
             tipoMembresiaId,
             genero,
@@ -195,7 +196,7 @@ exports.registrarUsuario = async (req, res) => {
             rol
         } = req.body;
 
-        if (!nombre || !email || !password || !confirm_password || !telefono || !direccion || !fecha_nacimiento || !tipoMembresiaId || !genero || !rol) {
+        if (!nombre || !email || !password || !confirm_password || !telefono || !direccion || !dni || !fecha_nacimiento || !tipoMembresiaId || !genero || !rol) {
             return res.status(400).json({ error: "Todos los campos son obligatorios" });
         }
 
@@ -226,6 +227,11 @@ exports.registrarUsuario = async (req, res) => {
 
         const generoNormalizado = genero === "masculino" ? "M" : genero === "femenino" ? "F" : genero;
 
+        // Generación de fechas
+        const fecha_inicio = new Date(); // Fecha actual
+        const fecha_fin = new Date(fecha_inicio); // Copiar la fecha de inicio
+        fecha_fin.setMonth(fecha_fin.getMonth() + 1); // Sumar 1 mes a la fecha de inicio
+
         // 👉 Registrar en la tabla Cliente o Administrador según el rol
         let clienteId = null;
         if (rolAsignado === "cliente") {
@@ -233,11 +239,14 @@ exports.registrarUsuario = async (req, res) => {
                 usuarioId: nuevoUsuario.id,
                 telefono,
                 direccion,
+                dni,
                 fecha_nacimiento,
                 genero: generoNormalizado,
                 peso,
                 tipoMembresiaId,
-                estatura
+                estatura,
+                fecha_inicio, // Asignamos la fecha de inicio
+                fecha_fin // Asignamos la fecha de fin
             });
             clienteId = nuevoCliente.id;
         } else if (rolAsignado === "administrador") {
@@ -265,4 +274,5 @@ exports.registrarUsuario = async (req, res) => {
         res.status(500).json({ error: "Error en el servidor" });
     }
 };
+
 

@@ -37,7 +37,7 @@ sequelize.sync({ alter: true })  // ⚠️ Esto crea/actualiza las tablas
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/asistencia", require("./routes/asistenciaRoutes")); // Nueva ruta agregada
 app.use("/api", require("./routes/cliente"));
-
+app.use('/api/user',require("./routes/userRoutes"));
 
 // Programar la tarea para ejecutar la generación de notificaciones todos los días a las 12:00 AM
 // Programar la tarea para ejecutar la generación de notificaciones todos los días a las 12:00 AM

@@ -93,12 +93,15 @@ exports.loginUsuario = async (req, res) => {
         const clienteId = usuario.cliente?.id || null;
 
         res.json({
-            mensaje: "Inicio de sesión exitoso",
             token,
-            nombre: usuario.nombre,
-            rol: usuario.rol,
-            clienteId
-        });
+            usuario: {
+              id: usuario.id,
+              nombre: usuario.nombre,
+              email: usuario.email,
+              rol: usuario.rol,
+              clienteId: usuario.cliente?.id || null
+            }
+          });
 
     } catch (error) {
         console.error("❌ Error en login:", error);
